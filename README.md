@@ -119,5 +119,5 @@
 * [GoogleTest Framework](https://github.com/google/googletest)
 
 ## License:
-*Any other file of this project is available under the MIT license as follow:*
+*Any other file of this project is available under the MIT license as follow:*  
 *Copyright (c) 2024 Vyacheslav Romanenko (aka slavroman)*
