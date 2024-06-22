@@ -27,14 +27,12 @@
         ```
         *... or select the generator and compiler you usually use.*
 * **Step 3**
-    * *To run app:*
-        *Go to source directory of build and run SearchEngine.exe*
+    * *To run app go to source directory of build and run SearchEngine.exe*
         ```
         cd src
         SearchEngine.exe
         ```
-    * *To run tests for app:*
-        *Go to test directory of build and run GTests.exe*
+    * *To run tests for app go to test directory of build and run GTests.exe*
         ```
         cd tests
         GTests.exe
