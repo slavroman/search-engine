@@ -1,5 +1,4 @@
 # **Search engine**
-
 ## Description:
 *This is a console application that performs searches and can be customized via JSON files.*
 
@@ -42,7 +41,10 @@
         ```
 
 ## How does this work:
-*Before launching the application, you must specify the paths to the text files in which the search will be performed in the "files" section of the "config.json" file and your requests in the "requests" section of the "requests.json" file.*
+*Before launching the application, you must specify the paths to the text files that will be searched in the "files" section of the "config.json" file, as well as your requests in the "requests" section of the "requests.json" file. All JSON files are located in the "json" folder.*
+
+*After launching the application, the "answers.json" file will appear in the "json" folder. It will contain the search results: Query number ("request###"), search result("true" or "false"), and a list of documents sorted by relevance(Note:"docid" 0 = file001.txt, "docid" 1 = file002.txt, etc.).*
+
 *For example:*
 * ***config.json***
     ```
@@ -70,6 +72,44 @@
     		"london",
     		"world"
     	]
+    ```
+* ***answers.json***   
+    ```
+    "answers": {
+        "request001": {
+            "result": true,
+            "relevance": [
+                {
+                    "docid": 7,
+                    "rank": 1.0
+                },
+                {
+                    "docid": 0,
+                    "rank": 0.667
+                },
+                {
+                    "docid": 1,
+                    "rank": 0.667
+                },
+                {
+                    "docid": 2,
+                    "rank": 0.667
+                },
+                {
+                    "docid": 3,
+                    "rank": 0.667
+                }
+            ]
+        },
+        "request002": {
+            "result": true,
+            "docid": 0,
+            "rank": 1.0
+        },
+        "request003": {
+            "result": false
+        }
+    }
     ```
 
 ## This project based on:
