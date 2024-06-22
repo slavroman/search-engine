@@ -1,5 +1,4 @@
 # **Search engine**
-***
 
 ## Description:
 *This is a console application that performs searches and can be customized via JSON files.*
