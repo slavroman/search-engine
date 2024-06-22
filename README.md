@@ -41,9 +41,9 @@
         ```
 
 ## How does this work:
-*Before launching the application, you must specify the paths to the text files that will be searched in the "files" section of the "config.json" file, as well as your requests in the "requests" section of the "requests.json" file. All JSON files are located in the "json" folder.*
-
-*After launching the application, the "answers.json" file will appear in the "json" folder. It will contain the search results: Query number ("request###"), search result("true" or "false"), and a list of documents sorted by relevance(Note:"docid" 0 = file001.txt, "docid" 1 = file002.txt, etc.).*
+*Before launching the application, you must specify the paths to the text files that will be searched in the "files" section of the "config.json" file, as well as your requests in the "requests" section of the "requests.json" file. All JSON files are located in the "json" folder.*  
+*After launching the application, the "answers.json" file will appear in the "json" folder. It will contain the search results: Query number ("request###"), search result("true" or "false"), and a list of documents sorted by relevance*  
+*(Note:"docid" 0 = file001.txt, "docid" 1 = file002.txt, etc.).*
 
 *For example:*
 * ***config.json***
