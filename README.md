@@ -4,12 +4,12 @@
 
 ## How to build and run:
 * **Step 1**
-    *Clone this repository on your pc use following command:*
-    * HTTPS: ` https://github.com/slavroman/search-engine.git `
-    * SSH: ` git@github.com:slavroman/search-engine.git `
-    * GitHub CLI: ` gh repo clone slavroman/search-engine `
-    
-    *... or donload as **ZIP** file and unpack somewhere on your pc.*
+    * *Clone this repository on your pc use following command:*
+        * HTTPS: ` https://github.com/slavroman/search-engine.git `
+        * SSH: ` git@github.com:slavroman/search-engine.git `
+        * GitHub CLI: ` gh repo clone slavroman/search-engine `
+        
+        *... or donload as **ZIP** file and unpack somewhere on your pc.*
 * **Step 2**
     * *Go to project folder:*
         ```
