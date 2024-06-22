@@ -9,7 +9,7 @@
         * SSH: ` git@github.com:slavroman/search-engine.git `
         * GitHub CLI: ` gh repo clone slavroman/search-engine `
         
-        *... or donload as **ZIP** file and unpack somewhere on your pc.*
+        *... or donload as **ZIP** file and unzip somewhere on your pc.*
 * **Step 2**
     * *Go to project folder:*
         ```
