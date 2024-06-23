@@ -1,4 +1,10 @@
 # **Search engine**
+- [Description](#Description)
+- [How to build and run](#How-to-build-and-run)
+- [How does this work](#How-does-this-work)
+- [Technologies](#Technologies)
+- [License](#License)
+
 ## Description:
 *This is a console application that performs searches and can be customized via JSON files.*
 
@@ -39,14 +45,14 @@
         ```
 
 ## How does this work:
-*Before running the application, you must specify the paths to the text files to search in the "files" section of the "config.json" file, as well as your requests in the "requests" section of the "requests.json" file. All JSON files are located in the "json" folder.*
+*Before running the application, you must specify the paths to the text files to search in the "files" section of the `config.json` file, as well as your requests in the "requests" section of the `requests.json` file. All JSON files are located in the "json" folder.*
 
-*After launching the application, the "answers.json" file will appear in the "json" folder. It will contain the search results: Query number ("request###"), search result("true" or "false"), and a list of documents sorted by relevance*  
+*After launching the application, the `answers.json` file will appear in the "json" folder. It will contain the search results: Query number ("request###"), search result("true" or "false"), and a list of documents sorted by relevance*  
 *(Note:"docid" 0 = file001.txt, "docid" 1 = file002.txt, etc.).*
 
 *For example:*
 * ***config.json***
-    ```
+    ```json
     "files": [
     		"./resources/file001.txt",
     		"./resources/file002.txt",
@@ -65,7 +71,7 @@
     	]
     ```
 * ***requests.json***
-    ```
+    ```json
     "requests": [
     		"moscow is the capital of russia",
     		"london",
@@ -73,7 +79,7 @@
     	]
     ```
 * ***answers.json***   
-    ```
+    ```json   
     "answers": {
         "request001": {
             "result": true,
@@ -111,7 +117,7 @@
     }
     ```
 
-## This project based on:
+## Technologies:
 * [C++17](https://en.cppreference.com/w/cpp/17)
 * [CMake 3.29.6](https://www.kitware.com/cmake-3-29-6-available-for-download/)
 * [Nlohmann JSON Library](https://github.com/nlohmann/json)
