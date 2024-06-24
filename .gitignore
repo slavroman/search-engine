@@ -3,7 +3,7 @@
 
 ### Folders ###
 # Build folder
-.build/
+build/
 
 ### C++ ###
 # Prerequisites
