@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 
 // For convenience
+using json = nlohmann::json;
 using orderedJson = nlohmann::ordered_json;
 
 ConverterJSON::ConverterJSON()
@@ -27,7 +28,7 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
     {
         if (configurationJsonFile.is_open())
         {
-            auto inputJsonData = orderedJson::parse(configurationJsonFile);
+            auto inputJsonData = json::parse(configurationJsonFile);
 
             if (inputJsonData.contains("config"))
             {
@@ -54,6 +55,10 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
     {
         std::cerr << ex.what() << std::endl;
     }
+    catch (const json::parse_error& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }
     catch (const ConfigFileEmptyException& ex)
     {
         std::cerr << ex.what() << std::endl;
@@ -73,20 +78,32 @@ std::vector<std::string> ConverterJSON::GetRequests()
 
     std::ifstream requestsJsonFile(".\\json\\requests.json");
 
-    if (requestsJsonFile.is_open())
+    try
     {
-        auto inputJsonData = orderedJson::parse(requestsJsonFile);
-
-        for (const auto& it : inputJsonData["requests"])
+        if (requestsJsonFile.is_open())
         {
-            requests.push_back(it);
+            auto inputJsonData = json::parse(requestsJsonFile);
+
+            for (const auto& it : inputJsonData["requests"])
+            {
+                requests.push_back(it);
+            }
+
+            requestsJsonFile.close();
+        }
+        else
+        {
+            throw RequestsFileMissingException();
         }
 
-        requestsJsonFile.close();
     }
-    else
+    catch (const json::parse_error& ex)
     {
-        std::cerr << "\tCan't open request file!\n";
+        std::cerr << ex.what() << std::endl;
+    }
+    catch (const RequestsFileMissingException& ex)
+    {
+        std::cerr << ex.what() << std::endl;
     }
 
     return requests;
@@ -94,71 +111,78 @@ std::vector<std::string> ConverterJSON::GetRequests()
 
 void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<size_t, float>>> answers)
 {
-    if (answers.empty())
+    try
     {
-        std::cerr << "\tAnswers is empty!\n";
-    }
-    else
-    {
-        std::ofstream answersJsonFile(".\\json\\answers.json", std::ios_base::trunc);
-
-        if (answersJsonFile.is_open())
+        if (!answers.empty())
         {
-            orderedJson answerJsonData;
+            std::ofstream answersJsonFile(".\\json\\answers.json", std::ios_base::trunc);
 
-            auto requestId{ 1 };
-            
-            for (const auto& request : answers)            
-            { 
-               // TODO: Need make construction below more elegant
+            if (answersJsonFile.is_open())
+            {
+                orderedJson answerJsonData;
 
-                std::string requestNumber{"000"};                
+                auto requestId{ 1 };
 
-                if (requestId >= 1 && requestId < 10)
+                for (const auto& request : answers)
                 {
-                    requestNumber.replace(2, 1, std::to_string(requestId));
-                }
+                    // TODO: Need make construction below more elegant
 
-                if (requestId >= 10 && requestId < 100)
-                {
-                    requestNumber.replace(1, 2, std::to_string(requestId));
-                }
+                    std::string requestNumber{ "000" };
 
-                if (requestId >= 100)
-                {
-                    requestNumber = std::to_string(requestId);
-                }
-
-                answerJsonData["answers"]["request" + requestNumber]["result"] = !request.empty();
-
-                for (const auto& [docid, rank] : request)
-                {
-                    auto doubleRank = static_cast<double>(rank);
-                    doubleRank = std::round(doubleRank * 1000.0) / 1000.0;
-
-                    if (request.size() == 1)
+                    if (requestId >= 1 && requestId < 10)
                     {
-                        answerJsonData["answers"]["request" + requestNumber]["docid"] = docid;
-                        answerJsonData["answers"]["request" + requestNumber]["rank"] = doubleRank;
+                        requestNumber.replace(2, 1, std::to_string(requestId));
+                    }
 
-                    }
-                    else
+                    if (requestId >= 10 && requestId < 100)
                     {
-                        orderedJson item = { {"docid", docid}, {"rank", doubleRank} };
-                        answerJsonData["answers"]["request" + requestNumber]["relevance"] += item;
+                        requestNumber.replace(1, 2, std::to_string(requestId));
                     }
+
+                    if (requestId >= 100)
+                    {
+                        requestNumber = std::to_string(requestId);
+                    }
+
+                    answerJsonData["answers"]["request" + requestNumber]["result"] = !request.empty();
+
+                    for (const auto& [docid, rank] : request)
+                    {
+                        auto doubleRank = static_cast<double>(rank);
+                        doubleRank = std::round(doubleRank * 1000.0) / 1000.0;
+
+                        if (request.size() == 1)
+                        {
+                            answerJsonData["answers"]["request" + requestNumber]["docid"] = docid;
+                            answerJsonData["answers"]["request" + requestNumber]["rank"] = doubleRank;
+
+                        }
+                        else
+                        {
+                            orderedJson item = { {"docid", docid}, {"rank", doubleRank} };
+                            answerJsonData["answers"]["request" + requestNumber]["relevance"] += item;
+                        }
+                    }
+
+                    ++requestId;
                 }
 
-                ++requestId;
+                answersJsonFile << std::setw(4) << answerJsonData << std::endl;
+
+                answersJsonFile.close();
             }
-
-            answersJsonFile << std::setw(4) << answerJsonData << std::endl;            
-
-            answersJsonFile.close();
+            else
+            {
+                std::cerr << "\tCan't open answers file!\n";
+            }
         }
         else
         {
-            std::cerr << "\tCan't open answers file!\n";
-        }        
+            throw AnswersEmptyException();
+        }
     }
+    catch (const AnswersEmptyException& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }    
 }

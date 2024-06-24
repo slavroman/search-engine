@@ -67,7 +67,7 @@ int main()
 
 	converter->putAnswers(answersToJSON);
 
-	std::cout << "\n\tanswers.json generated\n";	
+	std::cout << "\n\tProcessing complete.\n";	
 	
 	return 0;
 }
