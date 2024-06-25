@@ -17,7 +17,7 @@ struct RelativeIndex
 	
 	static bool reverseCompareByRank(const RelativeIndex& one, const RelativeIndex& two)
 	{
-		if (one.rank == two.rank/* && one.docId > two.docId*/)
+		if (one.rank == two.rank)
 		{
 			return one.docId < two.docId;
 		}
