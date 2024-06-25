@@ -67,7 +67,8 @@
     		"./resources/file0011.txt",
     		"./resources/file0012.txt",
     		"./resources/file0013.txt",
-    		"./resources/file0014.txt"		
+    		"./resources/file0014.txt",
+			"./resources/file0015.txt"
     	]
     ```
 * ***requests.json***
